@@ -5,8 +5,8 @@
         String a = new String("hello");
         String b = new String("hello");
         System.out.println(a == b);  // false — 堆里是两个不同的对象
-
     ```
+    
 对象相等：equals（）
     "equals()"比较的是两个对象在逻辑上是否相等
     ```Java
@@ -34,11 +34,11 @@ StringBuffer：可变长 线程安全 相StringBuilder来说较慢 继承Abstrac
         String s3 = s1 + s2 
         System.out.println(s1 + "," + "s2")
     ```
+
     ```Java
         String name = "张三"
         int age = 25;
         String info = "姓名：" + name + ",年龄：" + age;
-
         String info = new StringBuilder().append("姓名：").append(",年龄：").append(age).toString;
     ```
 
@@ -56,8 +56,6 @@ StringBuffer：可变长 线程安全 相StringBuilder来说较慢 继承Abstrac
     ```java
         import java.util.*;
         public class maploop{
-
-            
             public static void main(String args[]){
                 Map<String,String> map= new HashMap<String,String>;
                 map.put("一号"，"张三");
@@ -73,8 +71,8 @@ StringBuffer：可变长 线程安全 相StringBuilder来说较慢 继承Abstrac
                 }
             }
         }
-
     ```
+    
     方式二：通过map.entrySet()获取map的所有键值对
     ```java
         import java.util.*;
@@ -98,5 +96,49 @@ StringBuffer：可变长 线程安全 相StringBuilder来说较慢 继承Abstrac
             }
         }
     ```
+
+Object类
+>黑马程序员Java：day18-API
+
+包装类：
+>黑马程序员Java：day20-API
+
+内部类：
+    ![alt text](image-2.png)
+
+    内部类面试题：
+    请在?地方向上相应代码,以达到输出的内容
+    注意：内部类访问外部类对象的格式是：**外部类名.this**
+    ```java
+    public class Test {
+        public static void main(String[] args) {
+            Outer.inner oi = new Outer().new inner();
+            oi.method();
+        }
+    }
+
+    class Outer {	// 外部类
+        private int a = 30;
+
+        // 在成员位置定义一个类
+        class inner {
+            private int a = 20;
+
+            public void method() {
+                int a = 10;
+                System.out.println(???);	// 10   答案：a
+                System.out.println(???);	// 20	答案：this.a
+                System.out.println(???);	// 30	答案：Outer.this.a
+            }
+        }
+    }
+    ```
+
+
+Java8新特性、函数式编程：Stream流、Lambda表达式、匿名内部类
+>黑马程序员：day26-Stream流&方法引用
+>动力节点：doucument14~16
+
+
 
 
