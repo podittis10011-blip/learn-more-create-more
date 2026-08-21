@@ -194,3 +194,29 @@ Java8新特性、函数式编程：Stream流、Lambda表达式、匿名内部类
     add()、remove()改变集合结构后，modeCount发生变化及expectedModeCount未发生变化，迭代器下次检查发现二者不同，抛出ConcurrentModificationException
     单线程遍历安全删除：使用迭代器自己的remove()方法
     同步集合遍历需要手动加锁，如果多线程操作同一集合对象数据时存在线程安全问题
+
+什么是临界区？
+    answer:
+    临界区：访问共享的可变资源，且这段访问不能被多个线程同时执行的代码区域
+    共享：多个线程都能访问；可变：状态会被修改；互斥：同一时刻只有一个线程进入；
+    举例：
+    ```java
+    class Account {
+            //balance:共享可变状态
+        private int balance = 100;
+            //为保证线程安全，在方法前加synchronized关键字锁if(...){...}，if(...){...}就是共享区
+        public void synchronized withdraw(int amount) {
+            if (balance >= amount) {
+                balance -= amount;
+            }
+        }
+    //共享资源：balance
+    //     ↑
+    //临界区：读取、判断、扣减 balance 的代码
+    //     ↑
+    //锁：保证同一时刻只有一个线程进入临界区
+    //}
+    ```
+    临界区不能太大也不能太小：
+    太大：并发性能差
+    太小：可能会破坏原子性
