@@ -144,6 +144,7 @@ Java8新特性、函数式编程：Stream流、Lambda表达式、匿名内部类
 ### ArrayList源码解析：
     
 
+# Java并发：
 线程同步方法解决线程/数据安全问题：
     同步代码块解决数据安全问题：
         安全问题出现的条件：    
@@ -186,4 +187,10 @@ Java8新特性、函数式编程：Stream流、Lambda表达式、匿名内部类
             加锁方法：void lock()，获得锁
             解锁方法：void unlock(),释放锁
 
-        
+迭代器中的线程安全问题，迭代器遍历时增删会报错：
+    增强 `for` 循环底层使用的是 `Iterator`。迭代器创建时，会记录集合当前的结构修改次数。
+    `ArrayList` 内部大致维护：
+    `int modCount;int expectedModeCount;` 
+    add()、remove()改变集合结构后，modeCount发生变化及expectedModeCount未发生变化，迭代器下次检查发现二者不同，抛出ConcurrentModificationException
+    单线程遍历安全删除：使用迭代器自己的remove()方法
+    同步集合遍历需要手动加锁，如果多线程操作同一集合对象数据时存在线程安全问题
